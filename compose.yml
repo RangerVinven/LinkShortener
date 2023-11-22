@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: api/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./api/:/app
+
+  db:
+    build:
+      context: dev-database/
+    ports:
+      - "3306:3306"
+    
