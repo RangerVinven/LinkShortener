@@ -6,4 +6,5 @@ COPY * /app/
 
 RUN pip3 install -r requirements.txt
 
+EXPOSE 8000
 CMD [ "uvicorn", "main:api", "--port", "8000", "--reload" ]
