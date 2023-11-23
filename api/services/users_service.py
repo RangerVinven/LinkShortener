@@ -83,9 +83,12 @@ async def login_user(credentials: LoginUser, response: Response):
         raise HTTPException(status_code=401, detail="Email or password incorrect")
 
 
-async def signout_user(user: GetUser):
+async def signout_user(request: Request, response: Response):
     try:
-        cursor.execute("UPDATE Users SET SessionToken=null WHERE SessionToken=%s", (user.SessionToken))
+        sessionToken = request.cookies.get("SessionToken")
+        cursor.execute("UPDATE Users SET SessionToken=null WHERE SessionToken=%s", (sessionToken,))
+
+        response.delete_cookie("SessionToken")
         return {}
     
     except:
