@@ -1,7 +1,7 @@
 from services.database_service import cursor
 from services.security_service import generateSessionToken, hashPassword
 
-from models.User import CreateUser, GetUser
+from models.User import CreateUser, GetUser, LoginUser
 from fastapi import Request, Response, HTTPException
 
 from mysql.connector.errors import IntegrityError
@@ -33,7 +33,6 @@ async def create_user(user: CreateUser, response: Response):
     return {}
 
 
-
 async def update_user(user: CreateUser, request: Request):
     try:
         sessionToken = request.cookies.get("SessionToken")
@@ -49,12 +48,37 @@ async def update_user(user: CreateUser, request: Request):
     return {}
 
 
-
 async def delete_user(request: Request):
+
+
     try:
         cursor.execute("DELETE FROM Users WHERE SessionToken=%s", (request.cookies.get("SessionToken"),))
         return True
 
-    except Exception as e:
-        print(e)
+    except:
         raise HTTPException(status_code=500, detail="Something went wrong")    
+    
+async def login_user(credentials: LoginUser, response: Response):
+    
+    password = hashPassword(credentials.Password)
+
+    # Checks if the credentials are correct
+    cursor.execute("SELECT UserID FROM Users WHERE Email=%s AND Password=%s", (credentials.Email, password))
+    queryResponse = cursor.fetchone()
+
+    # If credentials are correct
+    if queryResponse != None:
+        userID = queryResponse["UserID"]
+
+        # Sets session token
+        sessionToken = generateSessionToken()
+        cursor.execute("UPDATE Users SET SessionToken=%s WHERE UserID=%s", (sessionToken, userID))
+
+        response.set_cookie(key="SessionToken", value=sessionToken)
+
+        return {}
+
+    else:
+        raise HTTPException(status_code=401, detail="Email or password incorrect")
+
+    
