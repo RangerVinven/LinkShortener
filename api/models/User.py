@@ -13,3 +13,6 @@ class CreateUser(BaseModel):
     LastName: str
     Email: EmailStr
     Password: str
+
+class GetUser(BaseModel):
+    SessionToken: str
