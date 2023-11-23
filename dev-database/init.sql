@@ -38,4 +38,4 @@ CREATE TABLE QRCodes (
     FOREIGN KEY(LinkCode) REFERENCES Links(LinkCode)
 );
 
-INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Daniel", "McPherson", "daniel.mcpherson@live.co.uk", "7fbea27fafd94c3024c3e97bfe7dc4840088af787e2502d7c68d12afc72f2b4d", "aae9fca333958734ea00b53d07c56d32");
+INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Daniel", "McPherson", "daniel.mcpherson@live.co.uk", "ReallySecurePassword", "aae9fca333958734ea00b53d07c56d32");
