@@ -1,7 +1,7 @@
 from services.database_service import cursor
 from services.security_service import generateSessionToken, hashPassword
 
-from models.User import CreateUser
+from models.User import CreateUser, GetUser
 from fastapi import Request, Response, HTTPException
 
 from mysql.connector.errors import IntegrityError
@@ -12,9 +12,11 @@ async def get_users():
     cursor.execute("SELECT * FROM Users;")
     return cursor.fetchall()
 
+
 async def get_user(user: GetUser):
     cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (user.SessionToken,))
     return cursor.fetchone()
+
 
 async def create_user(user: CreateUser, response: Response):
 
