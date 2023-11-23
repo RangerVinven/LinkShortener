@@ -4,6 +4,10 @@ from services.users_service import *
 
 usersRouter = APIRouter()
 
+@usersRouter.post("/login")
+async def login(credentials: LoginUser, response: Response):
+    return await login_user(credentials, response)
+
 # For Development only
 @usersRouter.get("/")
 async def getUsers():
