@@ -8,6 +8,10 @@ usersRouter = APIRouter()
 async def login(credentials: LoginUser, response: Response):
     return await login_user(credentials, response)
 
+@usersRouter.get("/signout")
+async def login(request: Request, response: Response):
+    return await signout_user(request, response)
+
 # For Development only
 @usersRouter.get("/")
 async def getUsers():
