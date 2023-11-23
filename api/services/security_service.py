@@ -5,4 +5,4 @@ def generateSessionToken():
     return token_hex(16)
 
 def hashPassword(password: str):
-    return hashlib.sha256(password).hexdigest()
+    return hashlib.sha256(bytes(password, "utf-8")).hexdigest()
