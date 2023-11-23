@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, Request
 
 from models.User import CreateUser
-from services.database import cursor
+
+from services.database_service import cursor
 from services.security_service import generateSessionToken
 
 from mysql.connector.errors import IntegrityError
