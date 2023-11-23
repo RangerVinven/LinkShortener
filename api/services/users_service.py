@@ -41,8 +41,7 @@ async def update_user(user: CreateUser, request: Request):
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
 
-    except Exception as e:
-        print(e)
+    except:
         raise HTTPException(status_code=500, detail="Something went wrong")
     
     return {}
