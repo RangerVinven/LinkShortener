@@ -58,6 +58,7 @@ async def delete_user(request: Request):
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")    
     
+
 async def login_user(credentials: LoginUser, response: Response):
     
     password = hashPassword(credentials.Password)
@@ -81,4 +82,11 @@ async def login_user(credentials: LoginUser, response: Response):
     else:
         raise HTTPException(status_code=401, detail="Email or password incorrect")
 
+
+async def signout_user(user: GetUser):
+    try:
+        cursor.execute("UPDATE Users SET SessionToken=null WHERE SessionToken=%s", (user.SessionToken))
+        return {}
     
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
