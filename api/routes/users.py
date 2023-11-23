@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Request
 
 from models.User import CreateUser
 from services.database import cursor
-from helpers.security import generateSessionToken
+from services.security_service import generateSessionToken
 
 from mysql.connector.errors import IntegrityError
 
@@ -39,3 +39,13 @@ async def updateUser(user: CreateUser, request: Request):
         raise HTTPException(status_code=500, detail="Something went wrong")
     
     return {}
+
+@usersRouter.delete("/")
+async def deleteUser(request: Request):
+    try:
+        cursor.execute("DELETE FROM Users WHERE SessionToken=%s", (request.cookies.get("SessionToken"),))
+        return True
+
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Something went wrong")    
