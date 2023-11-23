@@ -5,4 +5,11 @@ class User(BaseModel):
     FirstName: str
     LastName: str
     Email: EmailStr
+    Password: str
     SessionToken: str
+
+class CreateUser(BaseModel):
+    FirstName: str
+    LastName: str
+    Email: EmailStr
+    Password: str
