@@ -1,2 +1,4 @@
 fastapi[all]
+mysqlclient
+mysql-connector-python
 sqlalchemy
