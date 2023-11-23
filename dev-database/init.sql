@@ -4,7 +4,7 @@ CREATE TABLE Users (
     LastName VARCHAR(20) NOT NULL,
     Email VARCHAR(250) NOT NULL UNIQUE,
     Password VARCHAR(64) NOT NULL,
-    SessionToken VARCHAR(255) NOT NULL UNIQUE,
+    SessionToken VARCHAR(255) UNIQUE,
     PRIMARY KEY(UserID)
 );
 
