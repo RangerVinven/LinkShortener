@@ -2,7 +2,7 @@ from services.database_service import cursor
 from services.security_service import generateSessionToken, hashPassword
 
 from models.User import CreateUser
-from fastapi import Request, HTTPException
+from fastapi import Request, Response, HTTPException
 
 from mysql.connector.errors import IntegrityError
 
@@ -14,12 +14,14 @@ async def get_users():
 
 
 
-async def create_user(user: CreateUser):
+async def create_user(user: CreateUser, response: Response):
 
     password = hashPassword(user.Password)
+    sessionToken = generateSessionToken()
 
     try:
-        cursor.execute("INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES (%s, %s, %s, %s, %s)", (user.FirstName, user.LastName, user.Email, password, generateSessionToken()))
+        cursor.execute("INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES (%s, %s, %s, %s, %s)", (user.FirstName, user.LastName, user.Email, password, sessionToken))
+        response.set_cookie(key="SessionToken", value=sessionToken)
 
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
