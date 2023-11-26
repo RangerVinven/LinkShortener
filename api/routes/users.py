@@ -12,9 +12,9 @@ async def login(credentials: LoginUser, response: Response):
 async def login(request: Request, response: Response):
     return await signout_user(request, response)
 
-@usersRouter.get("/")
-async def getUser(request: Request):
-    return await get_user(request)
+# @usersRouter.get("/")
+# async def getUser(request: Request):
+#     return await get_user(request)
 
 # For Development only!!!
 @usersRouter.get("/")
