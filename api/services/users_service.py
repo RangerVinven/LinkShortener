@@ -27,10 +27,11 @@ async def create_user(user: CreateUser, response: Response):
         cursor.execute("INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES (%s, %s, %s, %s, %s)", (user.FirstName, user.LastName, user.Email, password, sessionToken))
         response.set_cookie(key="SessionToken", value=sessionToken)
 
+        return Response(status_code=200)
+
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
     
-    return Response(status_code=200)
 
 
 async def update_user(user: CreateUser, request: Request):
