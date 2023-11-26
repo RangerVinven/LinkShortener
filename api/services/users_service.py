@@ -7,9 +7,9 @@ from fastapi import Request, Response, HTTPException
 from mysql.connector.errors import IntegrityError
 
 
-async def get_users():
-    cursor.execute("SELECT * FROM Users;")
-    return cursor.fetchall()
+# async def get_users():
+#     cursor.execute("SELECT * FROM Users;")
+#     return cursor.fetchall()
 
 async def get_user(user: GetUser):
     cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (user.SessionToken,))
