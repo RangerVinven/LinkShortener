@@ -30,7 +30,7 @@ async def create_user(user: CreateUser, response: Response):
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
     
-    return {}
+    return Response(status_code=200)
 
 
 async def update_user(user: CreateUser, request: Request):
@@ -44,7 +44,7 @@ async def update_user(user: CreateUser, request: Request):
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
     
-    return {}
+    return Response(status_code=200)
 
 
 async def delete_user(request: Request):
@@ -52,7 +52,7 @@ async def delete_user(request: Request):
 
     try:
         cursor.execute("DELETE FROM Users WHERE SessionToken=%s", (request.cookies.get("SessionToken"),))
-        return True
+        return Response(status_code=200)
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")    
@@ -76,7 +76,7 @@ async def login_user(credentials: LoginUser, response: Response):
 
         response.set_cookie(key="SessionToken", value=sessionToken)
 
-        return {}
+        return response(status_code=200)
 
     else:
         raise HTTPException(status_code=401, detail="Email or password incorrect")
@@ -88,7 +88,7 @@ async def signout_user(request: Request, response: Response):
         cursor.execute("UPDATE Users SET SessionToken=null WHERE SessionToken=%s", (sessionToken,))
 
         response.delete_cookie("SessionToken")
-        return {}
+        return response(status_code=200)
     
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
