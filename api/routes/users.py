@@ -12,6 +12,10 @@ async def login(credentials: LoginUser, response: Response):
 async def login(request: Request, response: Response):
     return await signout_user(request, response)
 
+@usersRouter.get("/{sessionToken}")
+async def getUser(sessionToken: str):
+    return await get_user(sessionToken)
+
 # # For Development only!!!
 # @usersRouter.get("/")
 # async def getUsers():
