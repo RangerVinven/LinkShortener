@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Response
 
-from services.users_service import *
+from .services.users_service import *
 
 usersRouter = APIRouter()
 
