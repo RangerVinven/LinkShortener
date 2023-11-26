@@ -7,16 +7,13 @@ from fastapi import Request, Response, HTTPException
 from mysql.connector.errors import IntegrityError
 
 
-
 async def get_users():
     cursor.execute("SELECT * FROM Users;")
     return cursor.fetchall()
 
-
 async def get_user(user: GetUser):
     cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (user.SessionToken,))
     return cursor.fetchone()
-
 
 async def create_user(user: CreateUser, response: Response):
 
@@ -31,14 +28,13 @@ async def create_user(user: CreateUser, response: Response):
 
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
-    
-
 
 async def update_user(user: CreateUser, request: Request):
     try:
         sessionToken = request.cookies.get("SessionToken")
         cursor.execute("UPDATE Users SET FirstName=%s, LastName=%s, Email=%s, Password=%s WHERE SessionToken=%s", (user.FirstName, user.LastName, user.Email, user.Password, sessionToken))
 
+    # Catches if the email already exists in the table
     except IntegrityError:
         raise HTTPException(status_code=403, detail="Account with that email already exists")
 
@@ -47,9 +43,7 @@ async def update_user(user: CreateUser, request: Request):
     
     return Response(status_code=200)
 
-
 async def delete_user(request: Request):
-
 
     try:
         cursor.execute("DELETE FROM Users WHERE SessionToken=%s", (request.cookies.get("SessionToken"),))
@@ -57,7 +51,6 @@ async def delete_user(request: Request):
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")    
-    
 
 async def login_user(credentials: LoginUser, response: Response):
     
@@ -81,7 +74,6 @@ async def login_user(credentials: LoginUser, response: Response):
 
     else:
         raise HTTPException(status_code=401, detail="Email or password incorrect")
-
 
 async def signout_user(request: Request, response: Response):
     try:
