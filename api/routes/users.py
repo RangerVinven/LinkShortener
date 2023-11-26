@@ -16,10 +16,10 @@ async def login(request: Request, response: Response):
 async def getUser(request: Request):
     return await get_user(request)
 
-# # For Development only!!!
-# @usersRouter.get("/")
-# async def getUsers():
-#     return await get_users()
+# For Development only!!!
+@usersRouter.get("/")
+async def getUsers():
+    return await get_users()
 
 @usersRouter.post("/")
 async def createUser(user: CreateUser, response: Response):
