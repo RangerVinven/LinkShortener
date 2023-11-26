@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Response
 
-from .services.users_service import *
+from api.services.users_service import get_users, get_user, create_user, update_user, delete_user, login_user, signout_user
 
 usersRouter = APIRouter()
 
