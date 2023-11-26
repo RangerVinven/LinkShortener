@@ -39,3 +39,4 @@ CREATE TABLE QRCodes (
 );
 
 INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Daniel", "McPherson", "daniel.mcpherson@live.co.uk", "e8183822781ee45b69e3a5a1cc536b88fcf1396d4ca7fd77b91aa0b48b97d601", "aae9fca333958734ea00b53d07c56d32");
+INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Elliot", "Alderson", "elliot_alderson@proton.me", "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2", "abc76ae5ac6a7f8e998f0eacfd7a23s4");
