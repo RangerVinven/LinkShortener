@@ -11,8 +11,11 @@ from mysql.connector.errors import IntegrityError
 #     cursor.execute("SELECT * FROM Users;")
 #     return cursor.fetchall()
 
-async def get_user(user: GetUser):
-    cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (user.SessionToken,))
+async def get_user(request: Request):
+
+    sessionToken = request.cookies.get("SessionToken")
+
+    cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (sessionToken,))
     return cursor.fetchone()
 
 async def create_user(user: CreateUser, response: Response):
