@@ -1,7 +1,7 @@
-from services.database_service import cursor
-from services.security_service import generateSessionToken, hashPassword
+from api.services.database_service import cursor
+from api.services.security_service import generateSessionToken, hashPassword
 
-from models.User import CreateUser, GetUser, LoginUser
+from models.User import CreateUser, LoginUser
 from fastapi import Request, Response, HTTPException
 
 from mysql.connector.errors import IntegrityError
