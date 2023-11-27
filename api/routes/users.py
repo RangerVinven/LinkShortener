@@ -18,7 +18,7 @@ async def login(request: Request, response: Response):
 #     return await get_user(request)
 
 # For Development only!!!
-@usersRouter.get("/")
+@usersRouter.get("/all")
 async def getUsers():
     return await get_users()
 
