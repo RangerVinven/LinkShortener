@@ -17,3 +17,5 @@ async def createLinkFolder(linkFolder: CreateLinkFolder, request: Request):
 @linkFoldersRouter.put("/")
 async def updateLinkFolder(linkFolder: UpdateLinkFolder, request: Request):
     return await update_linkFolder(linkFolder, request)
+
+@linkFoldersRouter.delete("/"):
