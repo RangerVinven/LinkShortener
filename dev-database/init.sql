@@ -44,10 +44,10 @@ INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("
 INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Mr", "robot", "mr_robot@proton.me", "63c45d0e6b14344bda429b5caecb6994905fd19d8fbadc7539e4ef0e3c3a4342", "7826d6fb8csa09s5a67d8f7a54s6s8c9");
 
 -- Adds data into the LinkFolders table
-INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Programming Events", 1)
-INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Blog Posts", 1)
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Programming Events", 1);
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Blog Posts", 1);
 
-INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Winter Sale 2023", 2)
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Winter Sale 2023", 2);
 
-INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Referral Programs", 3)
-INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Twitter Ads", 3)
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Referral Programs", 3);
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Twitter Ads", 3);
