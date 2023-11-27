@@ -8,3 +8,8 @@ class LinkFolder(BaseModel):
 # Used to create the link folder
 class CreateLinkFolder(BaseModel):
     FolderName: str
+
+# Used for updating link folder
+class UpdateLinkFolder(BaseModel):
+    FolderID: int
+    FolderName: str
