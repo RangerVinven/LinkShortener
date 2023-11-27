@@ -35,7 +35,8 @@ async def update_linkFolder(request: Request):
         sessionToken = request.cookies.get("SessionToken")
 
         # Finds out if the LinkFolder belongs to the user
-
+        cursor.execute("SELECT UserID FROM Users WHERE SessionToken=%s", (sessionToken,))
+        userID
     
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
