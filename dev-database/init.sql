@@ -38,6 +38,16 @@ CREATE TABLE QRCodes (
     FOREIGN KEY(LinkCode) REFERENCES Links(LinkCode)
 );
 
+-- Adds data into the Users table
 INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Daniel", "McPherson", "daniel.mcpherson@live.co.uk", "e8183822781ee45b69e3a5a1cc536b88fcf1396d4ca7fd77b91aa0b48b97d601", "aae9fca333958734ea00b53d07c56d32");
 INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Elliot", "Alderson", "elliot_alderson@proton.me", "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2", "abc76ae5ac6a7f8e998f0eacfd7a23s4");
 INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES ("Mr", "robot", "mr_robot@proton.me", "63c45d0e6b14344bda429b5caecb6994905fd19d8fbadc7539e4ef0e3c3a4342", "7826d6fb8csa09s5a67d8f7a54s6s8c9");
+
+-- Adds data into the LinkFolders table
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Programming Events", 1)
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Blog Posts", 1)
+
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Winter Sale 2023", 2)
+
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Referral Programs", 3)
+INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Twitter Ads", 3)
