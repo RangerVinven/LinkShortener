@@ -1,8 +1,9 @@
-from api.services.database_service import cursor
-from api.services.security_service import generateSessionToken, hashPassword
+from services.database_service import cursor
+from services.security_service import generateSessionToken, hashPassword
 
 from models.User import CreateUser, LoginUser
 from fastapi import Request, Response, HTTPException
+from fastapi.responses import JSONResponse
 
 from mysql.connector.errors import IntegrityError
 
@@ -22,7 +23,6 @@ async def create_user(user: CreateUser, response: Response):
 
     password = hashPassword(user.Password)
     sessionToken = generateSessionToken()
-
     try:
         cursor.execute("INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES (%s, %s, %s, %s, %s)", (user.FirstName, user.LastName, user.Email, password, sessionToken))
         response.set_cookie(key="SessionToken", value=sessionToken)
@@ -35,7 +35,20 @@ async def create_user(user: CreateUser, response: Response):
 async def update_user(user: CreateUser, request: Request):
     try:
         sessionToken = request.cookies.get("SessionToken")
-        cursor.execute("UPDATE Users SET FirstName=%s, LastName=%s, Email=%s, Password=%s WHERE SessionToken=%s", (user.FirstName, user.LastName, user.Email, user.Password, sessionToken))
+
+        
+        # Makes sure the email doesn't exist in the table
+        cursor.execute("SELECT Email FROM Users WHERE Email=%s", (user.Email,))
+        emails = cursor.fetchall()
+        
+        # If the email exists in the table
+        if len(emails) != 0:
+            return JSONResponse(status_code=409, content={"Detail": "Account with that email already exists"})
+        
+        else:
+            cursor.execute("UPDATE Users SET FirstName=%s, LastName=%s, Email=%s, Password=%s WHERE SessionToken=%s", (user.FirstName, user.LastName, user.Email, user.Password, sessionToken))
+            return Response(status_code=200)
+
 
     # Catches if the email already exists in the table
     except IntegrityError:
@@ -44,8 +57,6 @@ async def update_user(user: CreateUser, request: Request):
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
     
-    return Response(status_code=200)
-
 async def delete_user(request: Request):
 
     try:
