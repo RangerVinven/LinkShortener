@@ -1,8 +1,8 @@
 
 from fastapi import APIRouter, Request
 
-from models.LinkFolder import CreateLinkFolder, UpdateLinkFolder
-from services.linkFolder_service import get_linkFolders, create_linkFolders, update_linkFolder
+from models.LinkFolder import CreateLinkFolder, UpdateLinkFolder, DeleteLinkFolder
+from services.linkFolder_service import get_linkFolders, create_linkFolders, update_linkFolder, delete_linkFolder
 
 linkFoldersRouter = APIRouter()
 
@@ -18,4 +18,6 @@ async def createLinkFolder(linkFolder: CreateLinkFolder, request: Request):
 async def updateLinkFolder(linkFolder: UpdateLinkFolder, request: Request):
     return await update_linkFolder(linkFolder, request)
 
-@linkFoldersRouter.delete("/"):
+@linkFoldersRouter.delete("/")
+async def deleteLinkFolder(linkFolder: DeleteLinkFolder, request: Request):
+    return await delete_linkFolder(linkFolder, request)
