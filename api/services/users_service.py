@@ -9,21 +9,28 @@ from mysql.connector.errors import IntegrityError
 
 
 async def get_users():
-    cursor.execute("SELECT * FROM Users;")
-    return cursor.fetchall()
+    try:
+        cursor.execute("SELECT * FROM Users;")
+        return cursor.fetchall()
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
 
 async def get_user(request: Request):
 
-    sessionToken = request.cookies.get("SessionToken")
+    try:
+        sessionToken = request.cookies.get("SessionToken")
 
-    cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (sessionToken,))
-    return cursor.fetchone()
+        cursor.execute("SELECT FirstName, LastName, Email FROM Users WHERE SessionToken=%s", (sessionToken,))
+        return cursor.fetchone()
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
 
 async def create_user(user: CreateUser, response: Response):
 
-    password = hashPassword(user.Password)
-    sessionToken = generateSessionToken()
     try:
+        password = hashPassword(user.Password)
+        sessionToken = generateSessionToken()
+
         cursor.execute("INSERT INTO Users (FirstName, LastName, Email, Password, SessionToken) VALUES (%s, %s, %s, %s, %s)", (user.FirstName, user.LastName, user.Email, password, sessionToken))
         response.set_cookie(key="SessionToken", value=sessionToken)
 
