@@ -38,12 +38,13 @@ async def update_linkFolder(linkFolder: UpdateLinkFolder, request: Request):
         # Checks if the user can modify the LinkFolder - returns true if they can
         userOwnsLinkFolder = await doesUserOwnLinkFolder(linkFolder.FolderID, userID)
 
-        if userOwnsLinkFolder:
-            cursor.execute("UPDATE LinkFolders SET FolderName=%s WHERE FolderID=%s AND UserID=%s", (linkFolder.NewFolderName, linkFolder.FolderID, userID))
-            return Response(status_code=200)
+        if not userOwnsLinkFolder:
+            # Tells the user they can't modify that LinkFolder
+            return JSONResponse(status_code=401, content={"Detail": "You can't access that LinkFolder"})
 
         else:
-            return JSONResponse(status_code=401, content={"Detail": "You can't access that LinkFolder"})
+            cursor.execute("UPDATE LinkFolders SET FolderName=%s WHERE FolderID=%s AND UserID=%s", (linkFolder.NewFolderName, linkFolder.FolderID, userID))
+            return Response(status_code=200)
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
