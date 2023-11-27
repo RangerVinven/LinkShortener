@@ -1,6 +1,7 @@
+from models.LinkFolder import CreateLinkFolder
 from services.database_service import cursor
 
-from fastapi import Request, HTTPException
+from fastapi import Response, Request, HTTPException
 
 async def get_linkFolders(request: Request):
     try:
@@ -13,3 +14,18 @@ async def get_linkFolders(request: Request):
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
 
+async def create_linkFolders(linkFolder: CreateLinkFolder, request: Request):
+    try:
+        sessionToken = request.cookies.get("SessionToken")
+
+        # Get's the user's ID
+        cursor.execute("SELECT UserID FROM Users WHERE SessionToken=%s", (sessionToken,))
+        userID = cursor.fetchone()["UserID"]
+
+        # Creates the link folder
+        cursor.execute("INSERT INTO LinkFolders (FolderName, UserID) VALUES (%s, %s)", (linkFolder.FolderName, userID))
+
+        return Response(status_code=200)
+
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
