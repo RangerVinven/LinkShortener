@@ -29,3 +29,13 @@ async def create_linkFolders(linkFolder: CreateLinkFolder, request: Request):
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
+    
+async def update_linkFolder(request: Request):
+    try:
+        sessionToken = request.cookies.get("SessionToken")
+
+        # Finds out if the LinkFolder belongs to the user
+
+    
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
