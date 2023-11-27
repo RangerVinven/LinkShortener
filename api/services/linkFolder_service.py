@@ -18,7 +18,7 @@ async def create_linkFolders(linkFolder: CreateLinkFolder, request: Request):
     try:
         sessionToken = request.cookies.get("SessionToken")
 
-        # Get's the user's ID
+        # Gets the user's ID
         cursor.execute("SELECT UserID FROM Users WHERE SessionToken=%s", (sessionToken,))
         userID = cursor.fetchone()["UserID"]
 
