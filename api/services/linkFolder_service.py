@@ -8,7 +8,7 @@ async def get_linkFolders(request: Request):
         sessionToken = request.cookies.get("SessionToken")
         
         # Gets all the LinkFolders belonging to the user with above session token
-        cursor.execute("SELECT LF.FolderName FROM LinkFolders as LF JOIN Users as U ON U.UserID=LF.UserID WHERE U.SessionToken=%s", (sessionToken,))
+        cursor.execute("SELECT LF.FolderID, LF.FolderName FROM LinkFolders as LF JOIN Users as U ON U.UserID=LF.UserID WHERE U.SessionToken=%s", (sessionToken,))
         return cursor.fetchall()
 
     except:
