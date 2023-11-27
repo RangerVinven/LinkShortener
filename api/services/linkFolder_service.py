@@ -1,9 +1,10 @@
-from models.LinkFolder import CreateLinkFolder
+from models.LinkFolder import CreateLinkFolder, UpdateLinkFolder
 
 from services.database_service import cursor
 from helpers.database_helpers import getUserIDFromRequest
 
 from fastapi import Response, Request, HTTPException
+from fastapi.responses import JSONResponse
 
 async def get_linkFolders(request: Request):
     try:
@@ -28,10 +29,22 @@ async def create_linkFolders(linkFolder: CreateLinkFolder, request: Request):
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
 
-async def update_linkFolder(request: Request):
+async def update_linkFolder(linkFolder: UpdateLinkFolder, request: Request):
     try:
         userID = await getUserIDFromRequest(request)
 
+        # Makes sure the LinkFolder is owned by the user
+        # Below query should return a list with the FolderID if the LinkFolder is owned by the user
+        cursor.execute("SELECT FolderID FROM LinkFolders WHERE FolderID=%s AND UserID=%s", (linkFolder.FolderID, userID))
+        queryResponse = cursor.fetchall()
+
+        print(queryResponse)
+
+        if len(queryResponse) != 1:
+            return JSONResponse(status_code=401, content={"Detail": "You can't access that LinkFolder"})
+
+        cursor.execute("UPDATE LinkFolders SET FolderName=%s WHERE FolderID=%s AND UserID=%s", (linkFolder.NewFolderName, linkFolder.FolderID, userID))
+        return Response(status_code=200)
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
