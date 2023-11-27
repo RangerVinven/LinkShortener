@@ -12,4 +12,4 @@ class CreateLinkFolder(BaseModel):
 # Used for updating link folder
 class UpdateLinkFolder(BaseModel):
     FolderID: int
-    FolderName: str
+    NewFolderName: str
