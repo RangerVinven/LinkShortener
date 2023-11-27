@@ -48,3 +48,22 @@ async def update_linkFolder(linkFolder: UpdateLinkFolder, request: Request):
 
     except:
         raise HTTPException(status_code=500, detail="Something went wrong")
+
+async def delete_linkFolder(linkFolder: DeleteLinkFolder, request: Request):
+    try:
+        # Gets the userID
+        userID = await getUserIDFromRequest(request)
+
+        # Checks if the user can modify the LinkFolder - returns true if they can
+        userOwnsLinkFolder = await doesUserOwnLinkFolder(linkFolder.FolderID, userID)
+
+        if not userOwnsLinkFolder:
+            # Tells the user they can't modify the LinkFolder
+            return JSONResponse(status_code=401, content={"Detail": "You can't access that LinkFolder"})
+
+        else:
+            cursor.execute("DELETE FROM LinkFolders WHERE FolderID=%s AND UserID=%s", (linkFolder.FolderID, userID))
+            return Response(status_code=200)
+
+    except:
+        raise HTTPException(status_code=500, detail="Something went wrong")
