@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Response
 
 from models.User import LoginUser, CreateUser
-from services.users_service import get_users, create_user, update_user, delete_user, login_user, signout_user
+from services.users_service import get_users, create_user, get_user, update_user, delete_user, login_user, signout_user
 
 usersRouter = APIRouter()
 
@@ -13,9 +13,9 @@ async def login(credentials: LoginUser, response: Response):
 async def login(request: Request, response: Response):
     return await signout_user(request, response)
 
-# @usersRouter.get("/")
-# async def getUser(request: Request):
-#     return await get_user(request)
+@usersRouter.get("/")
+async def getUser(request: Request):
+    return await get_user(request)
 
 # For Development only!!!
 @usersRouter.get("/all")
