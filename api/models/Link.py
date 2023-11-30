@@ -1,6 +1,7 @@
 from datetime import date
 
 from pydantic import BaseModel
+from typing import Optional
 
 class Link(BaseModel):
     LinkCode: int
@@ -20,6 +21,6 @@ class CreateLink(BaseModel):
     NumberOfVisits: int
     IsEnabled: bool
     IsExpired: bool
-    StartDate: date | None = None
-    ExpiryDate: date | None = None
+    StartDate: Optional[date] = None
+    ExpiryDate: Optional[date] = None
     DateCreated: date
