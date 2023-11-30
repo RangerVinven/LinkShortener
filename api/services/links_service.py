@@ -1,5 +1,7 @@
 from fastapi import Request
 
+from models.Link import CreateLink
+
 from services.database_service import cursor
 
 async def get_links(request: Request):
@@ -10,3 +12,6 @@ async def get_links(request: Request):
     links = cursor.fetchall()
 
     return links
+
+async def create_link(link: CreateLink, request: Request):
+    return link
