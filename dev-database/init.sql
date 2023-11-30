@@ -18,7 +18,7 @@ CREATE TABLE LinkFolders (
 
 CREATE TABLE Links (
     LinkCode VARCHAR(255) NOT NULL UNIQUE,
-    LinkName VARCHAR(25) NOT NULL,
+    LinkName VARCHAR(50) NOT NULL,
     RedirectsTo TEXT NOT NULL,
     NumberOfVisits INT NOT NULL DEFAULT 0,
     IsEnabled INT NOT NULL DEFAULT 1,
@@ -51,3 +51,7 @@ INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Winter Sale 2023", 2);
 
 INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Referral Programs", 3);
 INSERT INTO LinkFolders (FolderName, UserID) VALUES ("Twitter Ads", 3);
+
+-- Inserts data into the Links table
+INSERT INTO Links (LinkCode, LinkName, RedirectsTo, NumberOfVisits, IsEnabled, IsExpired, StartDate, ExpiryDate, DateCreated, FolderID)
+VALUES ('abc123', 'Python Workshop', 'https://example.com/python-workshop', 120, 1, 0, '2023-03-15', '2023-03-17', '2023-01-15 00:00:00', 1), ('def456', 'Introduction to Machine Learning', 'https://example.com/ml-intro', 80, 1, 0, '2023-04-01', '2023-04-05', '2023-02-10 00:00:00', 1), ('ghi789', 'Writing Clean Code', 'https://example.com/clean-code', 200, 1, 0, '2023-03-20', NULL, '2023-01-20 00:00:00', 2), ('jkl012', 'Data Privacy Best Practices', 'https://example.com/data-privacy', 150, 1, 0, '2023-02-28', NULL, '2023-01-28 00:00:00', 2), ('mno345', 'Winter Sale Homepage', 'https://example.com/winter-sale', 300, 1, 0, '2023-11-25', '2023-12-02', '2023-10-15 00:00:00', 3), ('pqr678', 'Winter Sale Product A', 'https://example.com/product-a', 50, 1, 0, '2023-11-25', '2023-12-02', '2023-11-01 00:00:00', 3), ('stu901', 'Web Development Tips', 'https://example.com/web-dev-tips', 180, 1, 0, '2023-03-10', NULL, '2023-01-10 00:00:00', 2), ('vwx234', 'Effective Database Design', 'https://example.com/db-design', 120, 1, 0, '2023-02-15', NULL, '2023-01-15 00:00:00', 2), ('yza567', 'Java Conference', 'https://example.com/java-conference', 250, 1, 0, '2023-04-20', '2023-04-22', '2023-02-20 00:00:00', 1), ('bcd890', 'Cybersecurity Blog', 'https://example.com/cybersecurity-blog', 120, 1, 0, '2023-03-05', NULL, '2023-01-05 00:00:00', 2);
