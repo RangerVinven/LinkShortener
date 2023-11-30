@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 class Link(BaseModel):
     LinkCode: int
-    LinkDescription: str
+    LinkName: str
     RedirectsTo: str
     NumberOfVisits: int
     IsEnabled: bool
